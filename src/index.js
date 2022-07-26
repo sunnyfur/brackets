@@ -28,9 +28,9 @@ module.exports = function check(str, bracketsConfig) {
 
     if (hasBracket(bracket)) {
       if (isDoublePair(bracket)) {
-        if (!stack.contains(bracket)) stack.push(bracket);
+        if (!stack.includes(bracket)) stack.push(bracket);
         else {
-          checkLast(bracket);
+          if (checkLast(bracket) === false) return false;
         }
       } else {
         stack.push(bracket);
@@ -38,7 +38,7 @@ module.exports = function check(str, bracketsConfig) {
 
       // console.log(2, stack);
     } else {
-      checkLast(bracket);
+      if (checkLast(bracket) === false) return false;
     }
   }
   return stack.length == 0;
